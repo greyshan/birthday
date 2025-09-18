@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Happy Birthday ✨</title>
+  <link rel="stylesheet" href="styles.css"/>
+</head>
+<body>
+  <main id="surprise-page">
+    <h1 class="title">Happy Birthday RIDDHI </h1>
+    <h2 class="subtitle">Tap the envelopes to reveal messages</h2>
+    <section class="envelopes" id="envelopeGrid"></section>
+
+    <!-- 🎵 Background Music -->
+<div id="audio-controls">
+  <button id="toggle-audio">▶ Play </button>
+  <audio id="bg-music" src="birthday song.mp3" loop></audio>
+</div>
+
+
+    <section class="cake-section">
+      <div class="cake" id="cake">
+        <div class="candle">
+          <div class="flame"></div>
+        </div>
+      </div>
+      <p>Tap the candle twice to celebrate 🎂</p>
+    </section>
+
+    <section class="gallery" id="photoGallery"></section>
+<div id="giftBox" class="gift-box">
+  <div class="base"></div>
+  <div class="lid"></div>
+  <span class="panda">🐼</span>  <!-- 🐼 Panda Emoji -->
+  <div class="content"></div>
+</div>
+
+
+
+    <canvas id="confetti"></canvas>
+  </main>
+  <script src="app.js"></script>
+</body>
+</html>
