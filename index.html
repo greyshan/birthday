@@ -3,22 +3,26 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Happy Birthday ✨</title>
+  <title>Happy Birthday RIDDHI ✨</title>
   <link rel="stylesheet" href="styles.css"/>
 </head>
 <body>
   <main id="surprise-page">
-    <h1 class="title">Happy Birthday RIDDHI </h1>
+    <h1 class="title">Happy Birthday RIDDHI 🐼</h1>
     <h2 class="subtitle">Tap the envelopes to reveal messages</h2>
+
+    <!-- Envelopes Section -->
     <section class="envelopes" id="envelopeGrid"></section>
 
     <!-- 🎵 Background Music -->
-<div id="audio-controls">
-  <button id="toggle-audio">▶ Play </button>
-  <audio id="bg-music" src="birthday song.mp3" loop></audio>
-</div>
+    <!-- Make sure mp3 file names match exactly (no spaces) -->
+    <audio id="bgMusic" src="happybirthday .mp3"></audio>
+    <audio id="giftMusic" src="giftbox song.mp3"></audio>
 
+    <!-- Play/Pause Button (sticky in the corner) -->
+    <button id="musicToggle">▶ Play</button>
 
+    <!-- Birthday Cake with Animated Candle -->
     <section class="cake-section">
       <div class="cake" id="cake">
         <div class="candle">
@@ -28,18 +32,22 @@
       <p>Tap the candle twice to celebrate 🎂</p>
     </section>
 
+    <!-- Gift Box Section -->
+    <div id="giftBox" class="gift-box">
+      <div class="base"></div>
+      <div class="lid"></div>
+      <span class="panda">🐼</span>
+      <div class="content"></div>
+    </div>
+
+    <!-- Photo Gallery -->
     <section class="gallery" id="photoGallery"></section>
-<div id="giftBox" class="gift-box">
-  <div class="base"></div>
-  <div class="lid"></div>
-  <span class="panda">🐼</span>  <!-- 🐼 Panda Emoji -->
-  <div class="content"></div>
-</div>
 
-
-
+    <!-- Confetti Canvas -->
     <canvas id="confetti"></canvas>
   </main>
+
+  <!-- JavaScript -->
   <script src="app.js"></script>
 </body>
 </html>

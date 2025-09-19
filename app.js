@@ -1,6 +1,6 @@
 // ----------------- FRIENDS & ENVELOPES -----------------
 const friends = [
-  { friend: 'Aakash', message: 'Aakas h wishes a day full of love!' },
+  { friend: 'Aakash', message: 'Aakash wishes a day full of love!' },
   { friend: 'Kunal', message: 'Kunal hopes your year is amazing!' },
   { friend: 'Sneha', message: 'Sneha says you’re the best friend ever!' },
   { friend: 'Amritanshu', message: 'Amritanshu sends hugs and laughter!' },
@@ -11,7 +11,7 @@ const friends = [
 
 const grid = document.getElementById('envelopeGrid');
 
-// Create envelope elements
+// Create envelopes
 friends.forEach(f => {
   const env = document.createElement('div');
   env.className = 'envelope';
@@ -50,44 +50,35 @@ function showLetter(name, message) {
   });
 }
 
-// ----------------- PHOTO GALLERY FADE-IN -----------------
 // ----------------- GIFT BOX PHOTO REVEAL -----------------
-// ----------------- GIFT BOX PHOTO REVEAL (UPDATED) -----------------
 const giftBox = document.getElementById('giftBox');
 const giftContent = giftBox.querySelector('.content');
-
-// ✅ Use your actual file names here
 const riddhiPhotos = [
-  'riddhi 1.png','riddhi 2.jpg','riddhi 3.jpg',
+'riddhi 1.png','riddhi 2.jpg','riddhi 3.jpg',
   'riddhi 4.jpg','riddhi 5.jpg', 'riddhi 5.png', 'riddhi 6.jpg',
   'riddhi 7.jpg','riddhi 8.jpg','riddhi 9.jpg',
   'riddhi 4.png'
 ];
- 
 
 let photoIndex = 0;
 let boxOpen = false;
 
 giftBox.addEventListener('click', () => {
-  // First tap → open box, hide panda, show first photo
   if (!boxOpen) {
     giftBox.classList.add('open');
     const panda = giftBox.querySelector('.panda');
     if (panda) panda.style.display = 'none';
+    startGiftMusic(); // Start gift music
     showNextPhoto();
     boxOpen = true;
     return;
   }
 
-  // Show next photo if any remain
   if (photoIndex < riddhiPhotos.length) {
     showNextPhoto();
-  }
-  // After the last photo → show final message
-  else if (photoIndex === riddhiPhotos.length) {
+  } else if (photoIndex === riddhiPhotos.length) {
     const finalText = "Once again happy birthday dear RIDDHI 🎉🎂";
-    giftContent.innerHTML = `<h2 id="finalMessage" class="fade-text" 
-      style="color:#ffcc00; text-shadow:2px 2px 4px #000;"></h2>`;
+    giftContent.innerHTML = `<h2 id="finalMessage" class="fade-text" style="color:#ffcc00; text-shadow:2px 2px 4px #000;"></h2>`;
     const finalElem = document.getElementById("finalMessage");
     let i = 0;
     const words = finalText.split(" ");
@@ -97,12 +88,11 @@ giftBox.addEventListener('click', () => {
         i++;
       } else {
         clearInterval(typer);
+        stopGiftMusic(); // Stop gift music after final message
       }
     }, 250);
     photoIndex++;
-  }
-  // Close and reset
-  else {
+  } else {
     giftBox.classList.remove('open');
     giftContent.innerHTML = '';
     photoIndex = 0;
@@ -113,17 +103,12 @@ giftBox.addEventListener('click', () => {
 });
 
 function showNextPhoto() {
-  // Insert the new photo with the flip animation class
   giftContent.innerHTML = `<img src="${riddhiPhotos[photoIndex]}" class="photo-animate">`;
-
-  // Re-trigger the animation by forcing a reflow
   const img = giftContent.querySelector("img");
-  void img.offsetWidth; // 🔄 Forces reflow so animation restarts if the class is reused
+  void img.offsetWidth; // Force reflow
   img.classList.add("photo-animate");
-
   photoIndex++;
 }
-
 
 // ----------------- CAKE & CONFETTI -----------------
 const cake = document.getElementById('cake');
@@ -200,26 +185,66 @@ window.addEventListener('resize', () => {
   confettiCanvas.width = window.innerWidth;
   confettiCanvas.height = window.innerHeight;
 });
+
 // ----------------- 🎵 AUDIO CONTROLS -----------------
-const audio = document.getElementById('bg-music');
-const toggleAudio = document.getElementById('toggle-audio');
+const bgMusic = document.getElementById('bgMusic');
+const musicToggle = document.getElementById('musicToggle');
+const giftMusic = document.getElementById('giftMusic');
 
-// Play music when page is first clicked/tapped anywhere
-document.body.addEventListener('click', () => {
-  if (audio.paused) {
-    audio.play().catch(err => console.log('Autoplay blocked:', err));
+// Pause background music when gift music starts
+giftMusic.addEventListener('play', () => {
+  if (!bgMusic.paused) {
+    bgMusic.pause();
+    musicToggle.textContent = '▶ Play';
+    musicToggle.classList.remove('playing');
   }
-}, { once: true }); // runs only on first click
+});
+// Resume background music after gift music ends
+giftMusic.addEventListener('ended', () => {
+  bgMusic.play()
+    .then(() => {
+      musicToggle.textContent = '⏸ Pause ';
+      musicToggle.classList.add('playing');
+    })
+    .catch(() => {
+      // Autoplay may be blocked—user can press play manually
+    });
+});
 
-// Play/pause button toggle
-toggleAudio.addEventListener('click', (e) => {
-  e.stopPropagation(); // prevent triggering body click again
-  if (audio.paused) {
-    audio.play();
-    toggleAudio.textContent = '⏸ Pause';
+
+bgMusic.loop = false;
+bgMusic.volume = 0.7;
+giftMusic.loop = false;
+giftMusic.volume = 0.8;
+
+document.addEventListener('pointerdown', () => {
+  if (bgMusic.paused && !musicToggle.classList.contains('playing')) {
+    bgMusic.play().then(() => {
+      musicToggle.textContent = '⏸ Pause';
+      musicToggle.classList.add('playing');
+    }).catch(err => console.warn('Autoplay blocked:', err));
+  }
+}, { once: true });
+
+musicToggle.addEventListener('click', (e) => {
+  e.stopPropagation();
+  if (bgMusic.paused) {
+    bgMusic.play();
+    musicToggle.textContent = '⏸ Pause ';
+    musicToggle.classList.add('playing');
   } else {
-    audio.pause();
-    toggleAudio.textContent = '▶ Play';
+    bgMusic.pause();
+    musicToggle.textContent = '▶ Play';
+    musicToggle.classList.remove('playing');
   }
 });
 
+function startGiftMusic() {
+  giftMusic.currentTime = 0;
+  giftMusic.play().catch(() => {});
+}
+
+function stopGiftMusic() {
+  giftMusic.pause();
+  giftMusic.currentTime = 0;
+}
