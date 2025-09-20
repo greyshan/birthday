@@ -318,3 +318,91 @@ body {
   background-color: #ff1493;
 }
 
+/* Secret unlock styles */
+.search-box {
+  display: flex;
+  align-items: center;
+  border: 2px solid #ccc;
+  border-radius: 30px;
+  padding: 10px 15px;
+  background: #fff;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  cursor: text;
+  width: 280px;
+  margin: 20px auto;
+}
+
+.search-box input {
+  border: none;
+  outline: none;
+  font-size: 16px;
+  width: 100%;
+}
+
+#hint {
+  display: none;
+  margin-top: 10px;
+  color: crimson;
+  font-weight: bold;
+  text-align: center;
+}
+
+#secret-section {
+  display: none;
+  margin-top: 30px;
+  text-align: center;
+}
+
+#secret-section img {
+  max-width: 90%;
+  border-radius: 12px;
+  box-shadow: 0 6px 15px rgba(0,0,0,0.2);
+}
+/* Panda-shaped Button */
+.panda-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px 35px;
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #333;
+  text-decoration: none;
+  background: radial-gradient(circle at 30% 30%, #fff 60%, #f3f3f3);
+  border: 3px solid #000;
+  border-radius: 50% / 40%;
+  position: relative;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+/* Panda ears */
+.panda-button::before,
+.panda-button::after {
+  content: "";
+  position: absolute;
+  top: -15px;
+  width: 25px;
+  height: 25px;
+  background: #000;
+  border-radius: 50%;
+}
+
+.panda-button::before {
+  left: 20px;
+}
+
+.panda-button::after {
+  right: 20px;
+}
+
+.panda-button:hover {
+  transform: scale(1.05);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+}
+
+/* Center section styling */
+.final-surprise {
+  text-align: center;
+  margin: 40px 0;
+}

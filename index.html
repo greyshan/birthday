@@ -16,8 +16,9 @@
 
     <!-- 🎵 Background Music -->
     <!-- Make sure mp3 file names match exactly (no spaces) -->
-    <audio id="bgMusic" src="happybirthday .mp3"></audio>
+    <audio id="bgMusic" src="birthday song.mp3"></audio>
     <audio id="giftMusic" src="giftbox song.mp3"></audio>
+    <audio id="cakeMusic" src="happybirthday .mp3"></audio>
 
     <!-- Play/Pause Button (sticky in the corner) -->
     <button id="musicToggle">▶ Play</button>
@@ -46,6 +47,37 @@
     <!-- Confetti Canvas -->
     <canvas id="confetti"></canvas>
   </main>
+   <!-- 🔒 Secret Unlock Section -->
+<div class="search-box" onclick="showPasswordField()">
+  <input type="text" id="searchInput" placeholder=" Only for Riddhi 🐼 " readonly>
+</div>
+
+<div id="password-box" style="display:none; margin-top: 15px;">
+  <input type="password" id="password" placeholder="Type the password">
+  <br>
+  <button onclick="checkPassword()">Unlock</button>
+</div>
+
+
+<p id="hint" style="display:none;">❗ Masti toh dekho, jab likha hai buss Riddhi ke liye firr bhi try karna hai ! 🎂</p>
+
+<div id="secret-section" style="display:none;">
+  <h3>🎉 Surprise! 🎉</h3>
+  <img id="secret-image" src="" alt="Secret Photo">
+</div>
+    <!-- 🐼 Final Surprise Button -->
+<section class="final-surprise">
+  <a href="https://username.github.io/other-project/"
+     target="_blank"
+     class="panda-button">
+    🐼 Final Surprise
+  </a>
+</section>
+
+  
+
+
+
 
   <!-- JavaScript -->
   <script src="app.js"></script>

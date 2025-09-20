@@ -54,10 +54,10 @@ function showLetter(name, message) {
 const giftBox = document.getElementById('giftBox');
 const giftContent = giftBox.querySelector('.content');
 const riddhiPhotos = [
-'riddhi 1.png','riddhi 2.jpg','riddhi 3.jpg',
-  'riddhi 4.jpg','riddhi 5.jpg', 'riddhi 5.png', 'riddhi 6.jpg',
-  'riddhi 7.jpg','riddhi 8.jpg','riddhi 9.jpg',
-  'riddhi 4.png'
+'riddhi 1.png', 'riddhi 11.png','riddhi 2.jpg','riddhi 12.png', 'riddhi 3.jpg', 'riddhi 13.png',
+  'riddhi 4.jpg','riddhi 14.png', 'riddhi 5.jpg','riddhi 15.png', 'riddhi 5.png','riddhi 16.png', 'riddhi 6.jpg',
+  'riddhi 7.jpg','riddhi 17.jpg', 'riddhi 8.jpg','riddhi 18.jpg', 'riddhi 9.jpg', 'riddhi 19.jpg', 'riddhi 20.jpg',
+  'riddhi 4.png','riddhi 21.jpg',  'riddh 22.jpg'
 ];
 
 let photoIndex = 0;
@@ -171,6 +171,22 @@ function animateConfetti() {
 
 cake.addEventListener('click', () => {
   flame.classList.toggle('off');
+  cake.addEventListener('click', () => {
+  flame.classList.toggle('off');
+
+  // 🔊 Play cake music whenever the cake is tapped
+  startCakeMusic();
+
+  if (!flame.classList.contains('off')) {
+    cancelAnimationFrame(animFrame);
+    launchConfetti();
+  } else {
+    cancelAnimationFrame(animFrame);
+    ctx.clearRect(0, 0, confettiCanvas.width, confettiCanvas.height);
+    confettiPieces = [];
+  }
+});
+
   if (!flame.classList.contains('off')) {
     cancelAnimationFrame(animFrame);
     launchConfetti();
@@ -187,64 +203,114 @@ window.addEventListener('resize', () => {
 });
 
 // ----------------- 🎵 AUDIO CONTROLS -----------------
-const bgMusic = document.getElementById('bgMusic');
+/* ----------------- 🎵 MUSIC CONTROL ----------------- */
+const bgMusic    = document.getElementById('bgMusic');
+const giftMusic  = document.getElementById('giftMusic');
+const cakeMusic  = document.getElementById('cakeMusic');
 const musicToggle = document.getElementById('musicToggle');
-const giftMusic = document.getElementById('giftMusic');
 
-// Pause background music when gift music starts
-giftMusic.addEventListener('play', () => {
-  if (!bgMusic.paused) {
-    bgMusic.pause();
-    musicToggle.textContent = '▶ Play';
-    musicToggle.classList.remove('playing');
-  }
-});
-// Resume background music after gift music ends
-giftMusic.addEventListener('ended', () => {
-  bgMusic.play()
-    .then(() => {
-      musicToggle.textContent = '⏸ Pause ';
-      musicToggle.classList.add('playing');
-    })
-    .catch(() => {
-      // Autoplay may be blocked—user can press play manually
-    });
-});
+bgMusic.loop = false;  bgMusic.volume = 0.7;
+giftMusic.loop = false; giftMusic.volume = 0.8;
+cakeMusic.loop = false; cakeMusic.volume = 0.8;
 
+let activeTrack = null; // gift or cake currently playing
 
-bgMusic.loop = false;
-bgMusic.volume = 0.7;
-giftMusic.loop = false;
-giftMusic.volume = 0.8;
-
+// Autoplay background on first user interaction
 document.addEventListener('pointerdown', () => {
-  if (bgMusic.paused && !musicToggle.classList.contains('playing')) {
-    bgMusic.play().then(() => {
-      musicToggle.textContent = '⏸ Pause';
-      musicToggle.classList.add('playing');
-    }).catch(err => console.warn('Autoplay blocked:', err));
-  }
+  if (bgMusic.paused) playBg();
 }, { once: true });
 
 musicToggle.addEventListener('click', (e) => {
   e.stopPropagation();
-  if (bgMusic.paused) {
-    bgMusic.play();
-    musicToggle.textContent = '⏸ Pause ';
+  if (bgMusic.paused) playBg();
+  else pauseBg();
+});
+
+function playBg() {
+  bgMusic.play().then(() => {
+    musicToggle.textContent = '⏸ Pause';
     musicToggle.classList.add('playing');
-  } else {
-    bgMusic.pause();
-    musicToggle.textContent = '▶ Play';
-    musicToggle.classList.remove('playing');
+  }).catch(()=>{});
+}
+function pauseBg() {
+  bgMusic.pause();
+  musicToggle.textContent = '▶ Play';
+  musicToggle.classList.remove('playing');
+}
+
+// Stop currently active track if any
+function stopActive() {
+  if (activeTrack && !activeTrack.paused) {
+    activeTrack.pause();
+    activeTrack.currentTime = 0;
+  }
+  activeTrack = null;
+}
+
+// Play gift music
+function startGiftMusic() {
+  stopActive();
+  pauseBg();
+  activeTrack = giftMusic;
+  giftMusic.currentTime = 0;
+  giftMusic.play().catch(()=>{});
+}
+
+// Call this when final gift message done
+function stopGiftMusic() {
+  stopActive();
+  playBg();
+}
+
+// Play cake music
+function startCakeMusic() {
+  stopActive();
+  pauseBg();
+  activeTrack = cakeMusic;
+  cakeMusic.currentTime = 0;
+  cakeMusic.play().catch(()=>{});
+}
+ 
+// When gift/cake ends naturally, resume background
+giftMusic.addEventListener('ended', () => {
+  if (activeTrack === giftMusic) {
+    activeTrack = null;
+    playBg();
+  }
+});
+cakeMusic.addEventListener('ended', () => {
+  if (activeTrack === cakeMusic) {
+    activeTrack = null;
+    playBg();
   }
 });
 
-function startGiftMusic() {
-  giftMusic.currentTime = 0;
-  giftMusic.play().catch(() => {});
+ // 🔑 Secret unlock logic
+function showPasswordField() {
+  document.getElementById("password-box").style.display = "block";
 }
 
-function stopGiftMusic() {
-  giftMusic.pause();
-  giftMusic.currentTime = 0;
+function checkPassword() {
+  const input = document.getElementById("password").value;
+  const secretSection = document.getElementById("secret-section");
+  const hint = document.getElementById("hint");
+  const secretImage = document.getElementById("secret-image");
+
+  if (input === "riddhi45") { // ✅ Set your password
+    secretSection.style.display = "block";
+    hint.style.display = "none";
+    secretImage.src = "secret.jpg"; // ✅ Replace with your image path
+  } else {
+    secretSection.style.display = "none";
+    hint.style.display = "block";
+  }
 }
+// Trigger password check on Enter key
+document.getElementById("password").addEventListener("keydown", function(event) {
+  if (event.key === "Enter") {
+    event.preventDefault(); // Prevent form submission or page reload
+    checkPassword();
+  }
+});
+
+
