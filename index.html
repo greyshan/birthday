@@ -1,85 +1,146 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Happy Birthday RIDDHI ✨</title>
-  <link rel="stylesheet" href="styles.css"/>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Launching Soon</title>
+
+  <style>
+    html,body {height:100%;margin:0;padding:0;}
+    body {
+      display:flex;
+      flex-direction:column;
+      justify-content:center;
+      align-items:center;
+      background:#0b0b0f;
+      color:#fff;
+      font-family:Inter,Segoe UI,Arial,sans-serif;
+      text-align:center;
+      padding:20px;
+    }
+    h1 {font-size:28px;margin:0 0 12px;}
+    #countdown {font-size:36px;letter-spacing:1px;}
+    .sub {opacity:.85;margin-top:12px;}
+    #preloadStatus {font-size:13px;color:#ddd;margin-top:12px;opacity:.9;}
+    #content {display:none;width:100%;height:100%;}
+  </style>
+
+  <!-- Preload some assets -->
+  <link rel="preload" href="riddhi 1.png" as="image">
+  <link rel="preload" href="riddhi 3.jpg" as="image">
+  <link rel="preload" href="riddhi 4.jpg" as="image">
+  <link rel="preload" href="riddhi 5.jpg" as="image">
+  <link rel="preload" href="riddhi 6.png" as="image">
+  <link rel="preload" href="riddhi 7.jpg" as="image">
+  <link rel="preload" href="riddhi 8.jpg" as="image">
+  <link rel="preload" href="riddhi 11.png" as="image">
+  <link rel="preload" href="riddhi 12.png" as="image">
+  <link rel="preload" href="riddhi 13.png" as="image">
+  <link rel="preload" href="riddhi 14.png" as="image">
+  <link rel="preload" href="new_bg_music.mp3" as="audio">
+  <link rel="preload" href="new_giftbox_music.mp3" as="audio">
+  <link rel="preload" href="happybirthday.mp3" as="audio">
+  <link rel="preload" href="main.html" as="document">
 </head>
 <body>
-  <main id="surprise-page">
-    <h1 class="title">Happy Birthday RIDDHI 🐼</h1>
-    <h2 class="subtitle">Tap the envelopes to reveal messages</h2>
+  <div id="countWrap">
+    <h1>Maarenge chaku, niklega Khoon! RIDDHI ka birthday coming soon !</h1>
+    <div id="countdown">Loading…</div>
+    <div class="sub">is left before chhota don turns 18</div>
+    <div id="preloadStatus">chota don turning 18 in </div>
+  </div>
 
-    <!-- Envelopes Section -->
-    <section class="envelopes" id="envelopeGrid"></section>
+  <div id="content" aria-hidden="true"></div>
 
-    <!-- 🎵 Background Music -->
-    <!-- Make sure mp3 file names match exactly (no spaces) -->
-    <audio id="bgMusic" src="new_bg_music.mp3"></audio>
-    <audio id="giftMusic" src="new_giftbox_music.mp3"></audio>
-    <audio id="cakeMusic" src="happybirthday.mp3"></audio>
-  
-    <!-- Play/Pause Button (sticky in the corner) -->
-    <button id="musicToggle">▶ Play</button>
+  <script>
+    // ---------- CONFIG ----------
+    const TARGET = new Date("2025-09-20T19:45:00+05:30").getTime();
+    const MAIN_HTML = "main.html";
+    const MAIN_CSS  = "styles.css";
+    const MAIN_JS   = "app.js";
 
-    <!-- Birthday Cake with Animated Candle -->
-    <section class="cake-section">
-      <div class="cake" id="cake">
-        <div class="candle">
-          <div class="flame"></div>
-        </div>
-      </div>
-      <p>Tap the candle thrice to celebrate 🎂</p>
-    </section>
+    // 👉 If after launch, skip countdown entirely
+    if (Date.now() >= TARGET) {
+      location.replace(MAIN_HTML);
+    }
 
-    <!-- Gift Box Section -->
-    <div id="giftBox" class="gift-box">
-      <div class="base"></div>
-      <div class="lid"></div>
-      <span class="panda">🐼</span>
-      <div class="content"></div>
-    </div>
+    const elCountdown = document.getElementById("countdown");
+    const elPreload   = document.getElementById("preloadStatus");
+    const elContent   = document.getElementById("content");
 
-    <!-- Photo Gallery -->
-    <section class="gallery" id="photoGallery"></section>
+    // ---------- COUNTDOWN ----------
+    function updateCountdown() {
+      const now = Date.now();
+      const diff = TARGET - now;
+      if (diff <= 0) {
+        revealSite();
+        return;
+      }
+      const d = Math.floor(diff / (1000*60*60*24));
+      const h = Math.floor((diff/(1000*60*60)) % 24);
+      const m = Math.floor((diff/(1000*60)) % 60);
+      const s = Math.floor((diff/1000) % 60);
+      elCountdown.textContent = `${d}d ${h}h ${m}m ${s}s`;
+    }
+    updateCountdown();
+    const timer = setInterval(updateCountdown, 1000);
 
-    <!-- Confetti Canvas -->
-    <canvas id="confetti"></canvas>
-  </main>
-   <!-- 🔒 Secret Unlock Section -->
-<div class="search-box" onclick="showPasswordField()">
-  <input type="text" id="searchInput" placeholder=" Only for Riddhi 🐼 " readonly>
-</div>
+    // ---------- PRELOAD ----------
+    const preloadList = [
+     "riddhi 1.png","riddhi 3.jpg","riddhi 4.jpg","riddhi 5.jpg","riddhi 6.png","riddhi 7.jpg","riddhi 8.jpg","riddhi 11.png","riddhi 12.png","riddhi 13.png","riddhi 14.png",
+      "new_giftbox_music.mp3","new_bg_music.mp3","happybirthday.mp3",
+    ];
+    (async function preloadAssets(){
+      const imgs = preloadList.filter(p => p.match(/\.(jpg|jpeg|png|gif)$/i));
+      const audios = preloadList.filter(p => p.match(/\.(mp3|wav|ogg)$/i));
+      await Promise.all(imgs.map(src => new Promise(res=>{
+        const img = new Image();
+        img.onload = res; img.onerror = res;
+        img.src = src;
+      })));
+      await Promise.all(audios.map(src => fetch(src).catch(()=>{})));
+      elPreload.textContent = "party begins at midnight!";
+    })();
 
-<div id="password-box" style="display:none; margin-top: 15px;">
-  <input type="password" id="password" placeholder="Type the password">
-  <br>
-  <button onclick="checkPassword()">Unlock</button>
-</div>
+    // ---------- REVEAL ----------
+    async function revealSite() {
+      clearInterval(timer);
+      elCountdown.textContent = "Revealing…";
+      elPreload.textContent = "Loading site…";
 
+      try {
+        const resp = await fetch(MAIN_HTML);
+        if (!resp.ok) throw new Error(`Failed to fetch ${MAIN_HTML}`);
+        const html = await resp.text();
 
-<p id="hint" style="display:none;">❗ Masti toh dekho, jab likha hai buss Riddhi ke liye firr bhi try karna hai ! 🎂</p>
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(html, "text/html");
+        const bodyHtml = doc.body.innerHTML;
 
-<div id="secret-section" style="display:none;">
-  <h3>🎉 Surprise! 🎉</h3>
-  <img id="secret-image" src="" alt="Secret Photo">
-</div>
-    <!-- 🐼 Final Surprise Button -->
-<section class="final-surprise">
-  <a href="https://surprise-site-master-main-6ryqh94un-gulshan-s-projects-074473b7.vercel.app"
-     target="_blank"
-     class="panda-button">
-    🐼 Final Surprise
-  </a>
-</section>
+        elContent.innerHTML = bodyHtml;
 
-  
+        // Inject CSS
+        const link = document.createElement("link");
+        link.rel = "stylesheet";
+        link.href = MAIN_CSS;
+        document.head.appendChild(link);
 
+        // Hide countdown, show content
+        document.getElementById("countWrap").style.display = "none";
+        elContent.style.display = "block";
+        elContent.removeAttribute("aria-hidden");
 
+        // Inject JS for main site
+        const script = document.createElement("script");
+        script.src = MAIN_JS;
+        document.body.appendChild(script);
 
-
-  <!-- JavaScript -->
-  <script src="app.js"></script>
+        elPreload.textContent = "Site loaded.";
+      } catch (err) {
+        console.error(err);
+        elPreload.textContent = "Error loading site. See console.";
+      }
+    }
+  </script>
 </body>
 </html>

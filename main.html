@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Happy Birthday RIDDHI ✨</title>
+  <link rel="stylesheet" href="styles.css"/>
+</head>
+<body>
+  <main id="surprise-page">
+    <h1 class="title">Happy Birthday RIDDHI 🐼</h1>
+    <h2 class="subtitle">Tap the envelopes to reveal messages</h2>
+
+    <!-- Envelopes Section -->
+    <section class="envelopes" id="envelopeGrid"></section>
+
+    <!-- 🎵 Background Music -->
+    <!-- Make sure mp3 file names match exactly (no spaces) -->
+    <audio id="bgMusic" src="new_bg_music.mp3"></audio>
+    <audio id="giftMusic" src="new_giftbox_music.mp3"></audio>
+    <audio id="cakeMusic" src="happybirthday.mp3"></audio>
+  
+    <!-- Play/Pause Button (sticky in the corner) -->
+    <button id="musicToggle">▶ Play</button>
+
+    <!-- Birthday Cake with Animated Candle -->
+    <section class="cake-section">
+      <div class="cake" id="cake">
+        <div class="candle">
+          <div class="flame"></div>
+        </div>
+      </div>
+      <p>Tap the candle thrice to celebrate 🎂</p>
+    </section>
+
+    <!-- Gift Box Section -->
+    <div id="giftBox" class="gift-box">
+      <div class="base"></div>
+      <div class="lid"></div>
+      <span class="panda">🐼</span>
+      <div class="content"></div>
+    </div>
+
+    <!-- Photo Gallery -->
+    <section class="gallery" id="photoGallery"></section>
+
+    <!-- Confetti Canvas -->
+    <canvas id="confetti"></canvas>
+  </main>
+   <!-- 🔒 Secret Unlock Section -->
+<div class="search-box" onclick="showPasswordField()">
+  <input type="text" id="searchInput" placeholder=" Only for Riddhi 🐼 " readonly>
+</div>
+
+<div id="password-box" style="display:none; margin-top: 15px;">
+  <input type="password" id="password" placeholder="Type the password">
+  <br>
+  <button onclick="checkPassword()">Unlock</button>
+</div>
+
+
+<p id="hint" style="display:none;">❗ Masti toh dekho, jab likha hai buss Riddhi ke liye firr bhi try karna hai ! 🎂</p>
+
+<div id="secret-section" style="display:none;">
+  <h3>🎉 Surprise! 🎉</h3>
+  <img id="secret-image" src="" alt="Secret Photo">
+</div>
+    <!-- 🐼 Final Surprise Button -->
+<section class="final-surprise">
+  <a href="https://surprise-site-master-main-6ryqh94un-gulshan-s-projects-074473b7.vercel.app"
+     target="_blank"
+     class="panda-button">
+    🐼 Final Surprise
+  </a>
+</section>
+
+  
+
+
+
+
+  <!-- JavaScript -->
+  <script src="app.js"></script>
+</body>
+</html>
