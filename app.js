@@ -1,12 +1,12 @@
 // ----------------- FRIENDS & ENVELOPES -----------------
 const friends = [
   { friend: 'Aakash', message: 'Aakash wishes a day full of love!' },
-  { friend: 'Kunal', message: 'Kunal hopes your year is amazing!' },
-  { friend: 'Sneha', message: 'Sneha says you’re the best friend ever!' },
-  { friend: 'Amritanshu', message: 'Amritanshu sends hugs and laughter!' },
+  { friend: 'Kunal', message: 'HAPPY BIRTHDAY🎂👉 RIDDHI🌷💐you little bundle of chaos and cuteness Keep spreading your 😜crazy vibes😁😁' },
+  { friend: 'Sneha', message: 'Happy birthday Riddhi, you are the best and i enjoy when you call me DIDI' },
+  { friend: 'Amritanshu', message: 'Happy Birthday Riddhi. Many many happy returns of the day!! You are proof that growing up is optional. Wishing you another year of laughter and never ending talks. Have an amazing day!! 👏 🎂🥳🎊🎉' },
   { friend: 'Aarti', message: 'Aarti says may all your dreams come true!' },
-  { friend: 'Shubhra', message: 'Shubhra says you light up every room!' },
-  { friend: 'Me', message: 'I love you endlessly ❤️' }
+  { friend: 'Shubhra', message: 'Happy birthday riddhi, stay happy and blessed, may you achieve everything you want this year, many returns of the day💓🧿' },
+  { friend: 'Me', message: 'Happy birthday Riddhi, I am glad we are friends!  ' }
 ];
 
 const grid = document.getElementById('envelopeGrid');
@@ -299,7 +299,7 @@ function checkPassword() {
   if (input === "riddhi45") { // ✅ Set your password
     secretSection.style.display = "block";
     hint.style.display = "none";
-    secretImage.src = "secret.jpg"; // ✅ Replace with your image path
+    secretImage.src = "special note.jpg"; // ✅ Replace with your image path
   } else {
     secretSection.style.display = "none";
     hint.style.display = "block";
