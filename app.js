@@ -4,7 +4,7 @@ const friends = [
   { friend: 'Kunal', message: 'HAPPY BIRTHDAY🎂👉 RIDDHI🌷💐you little bundle of chaos and cuteness Keep spreading your 😜crazy vibes😁😁' },
   { friend: 'Sneha', message: 'Happy birthday Riddhi, you are the best and i enjoy when you call me DIDI' },
   { friend: 'Amritanshu', message: 'Happy Birthday Riddhi. Many many happy returns of the day!! You are proof that growing up is optional. Wishing you another year of laughter and never ending talks. Have an amazing day!! 👏 🎂🥳🎊🎉' },
-  { friend: 'Aarti', message: 'Aarti says may all your dreams come true!' },
+  { friend: 'Siddhi', message: 'Happy birthday! Wishing you a day filled with all your favorite things and a year ahead that is even better than the last.....' },
   { friend: 'Shubhra', message: 'Happy birthday riddhi, stay happy and blessed, may you achieve everything you want this year, many returns of the day💓🧿' },
   { friend: 'Me', message: 'Happy birthday Riddhi, I am glad we are friends!  ' }
 ];
@@ -12,16 +12,25 @@ const friends = [
 const grid = document.getElementById('envelopeGrid');
 
 // Create envelopes
-friends.forEach(f => {
+
+friends.forEach((f, index) => {
   const env = document.createElement('div');
   env.className = 'envelope';
   env.innerHTML = `<div class="flap"></div>`;
+
   env.addEventListener('click', () => {
+    // ▶ Play background music only when the first envelope is clicked
+    if (index === 0 && bgMusic.paused) {
+      playBg();
+    }
+
     env.classList.add('open');
     showLetter(f.friend, f.message);
   });
+
   grid.appendChild(env);
 });
+
 
 // Show letter with typewriter effect
 function showLetter(name, message) {
