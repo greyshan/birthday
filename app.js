@@ -56,7 +56,7 @@ const giftContent = giftBox.querySelector('.content');
 const riddhiPhotos = [
 'riddhi 1.png', 'riddhi 11.png','riddhi 2.jpg','riddhi 12.png', 'riddhi 3.jpg', 'riddhi 13.png',
   'riddhi 4.jpg','riddhi 14.png', 'riddhi 5.jpg','riddhi 15.png', 'riddhi 5.png','riddhi 16.png', 'riddhi 6.jpg',
-  'riddhi 7.jpg','riddhi 17.jpg', 'riddhi 8.jpg','riddhi 18.jpg', 'riddhi 9.jpg', 'riddhi 19.jpg', 'riddhi 20.jpg',
+  'riddhi 7.jpg','riddhi 17.jpg', 'riddhi 8.jpg','riddhi 18.jpg', 'riddhi 9.jpg',  'riddhi 20.jpg',
   'riddhi 4.png','riddhi 21.jpg',  'riddh 22.jpg'
 ];
 
@@ -209,6 +209,15 @@ const giftMusic  = document.getElementById('giftMusic');
 const cakeMusic  = document.getElementById('cakeMusic');
 const musicToggle = document.getElementById('musicToggle');
 
+// ✅ Preload audio so it’s ready to play on mobile
+[bgMusic, giftMusic, cakeMusic].forEach(track => {
+  track.load();
+  track.addEventListener('canplaythrough', () => {
+    console.log(`${track.id} ready to play`);
+  });
+});
+
+
 bgMusic.loop = false;  bgMusic.volume = 0.7;
 giftMusic.loop = false; giftMusic.volume = 0.8;
 cakeMusic.loop = false; cakeMusic.volume = 0.8;
@@ -227,11 +236,16 @@ musicToggle.addEventListener('click', (e) => {
 });
 
 function playBg() {
-  bgMusic.play().then(() => {
-    musicToggle.textContent = '⏸ Pause';
-    musicToggle.classList.add('playing');
-  }).catch(()=>{});
+  bgMusic.play()
+    .then(() => {
+      musicToggle.textContent = '⏸ Pause';
+      musicToggle.classList.add('playing');
+    })
+    .catch(err => {
+      console.warn('Background music could not play yet:', err);
+    });
 }
+
 function pauseBg() {
   bgMusic.pause();
   musicToggle.textContent = '▶ Play';
