@@ -1,6 +1,6 @@
 // ----------------- FRIENDS & ENVELOPES -----------------
 const friends = [
-  { friend: 'Aakash', message: 'Aakash wishes a day full of love!' },
+  { friend: 'Aakash', message: 'Happy Birthday, my dear friend! 🥳✨ Wishing you lots of smiles, love, and beautiful memories in the year ahead. May this year be as amazing as you are 💕🎂' },
   { friend: 'Kunal', message: 'HAPPY BIRTHDAY🎂👉 RIDDHI🌷💐you little bundle of chaos and cuteness Keep spreading your 😜crazy vibes😁😁' },
   { friend: 'Sneha', message: 'Happy birthday Riddhi, you are the best and i enjoy when you call me DIDI' },
   { friend: 'Amritanshu', message: 'Happy Birthday Riddhi. Many many happy returns of the day!! You are proof that growing up is optional. Wishing you another year of laughter and never ending talks. Have an amazing day!! 👏 🎂🥳🎊🎉' },
